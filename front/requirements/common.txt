@@ -1,0 +1,6 @@
+react
+axios
+react-router-dom
+antd
+node-sass
+use-reducer-with-side-effects
