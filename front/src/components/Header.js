@@ -1,5 +1,5 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { Input, Space } from "antd";
 import {
   DollarCircleOutlined,
@@ -10,6 +10,7 @@ import "scss/Header.scss";
 import Nav from "./Nav";
 
 export default function Header() {
+  const navigate = useNavigate();
   const onSearch = (value) => console.log(value);
   return (
     <>
@@ -17,8 +18,12 @@ export default function Header() {
         <div></div>
         <div className="top_bar_right">
           <Space>
-            <div>로그인/회원가입</div>
-            <div>내상점</div>
+            <div onClick={() => navigate("/login")}>
+              <p>로그인/회원가입</p>
+            </div>
+            <div>
+              <p>내상점</p>
+            </div>
           </Space>
         </div>
       </div>
@@ -26,7 +31,7 @@ export default function Header() {
 
       <div className="header">
         <div className="logo">
-          <p>불꽃장터</p>
+          <p onClick={() => navigate("/")}>불꽃장터</p>
           <div className="nav">
             <Nav />
           </div>

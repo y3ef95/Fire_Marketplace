@@ -73,7 +73,7 @@ export default function Signup() {
           description: "로그인 페이지로 이동합니다.",
           icon: <SmileOutlined style={{ color: "#108ee9" }} />,
         });
-        navigate("/user/login");
+        navigate("/login");
       } catch (error) {
         if (error.response) {
           console.error(error.response);
