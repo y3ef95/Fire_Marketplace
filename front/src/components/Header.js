@@ -21,7 +21,7 @@ export default function Header() {
             <div onClick={() => navigate("/login")}>
               <p>로그인/회원가입</p>
             </div>
-            <div>
+            <div onClick={() => navigate("/profile")}>
               <p>내상점</p>
             </div>
           </Space>
@@ -50,7 +50,7 @@ export default function Header() {
               <DollarCircleOutlined />
               판매하기
             </div>
-            <div>
+            <div onClick={() => navigate("/profile")}>
               <UserOutlined />
               내상점
             </div>

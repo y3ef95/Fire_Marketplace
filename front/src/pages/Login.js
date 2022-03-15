@@ -2,21 +2,21 @@ import React, { useState } from "react";
 import { Card, Form, Input, Button, notification } from "antd";
 import { SmileOutlined, FrownOutlined } from "@ant-design/icons";
 import axios from "axios";
-import { useLocation, useNavigate } from "react-router-dom";
-import useLocalStorage from "utils/useLocalStorage";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useAppContext, setToken } from "store";
 import "scss/Login.scss";
 
 export default function Login() {
   const navigate = useNavigate();
-  const [jwtToken, setJwtToken] = useLocalStorage("jwtToken", "");
-  const [fieldErrors, setFieldErrors] = useState();
-
-  console.log("loaded token : ", jwtToken);
+  const { dispatch } = useAppContext();
+  const location = useLocation();
+  const { from: loginRequiredUrl } = location.state || {
+    from: { pathname: "/" },
+  };
 
   const onFinish = (values) => {
     async function fn() {
       const { email, password } = values;
-      setFieldErrors({});
 
       const data = { email, password };
       try {
@@ -28,14 +28,14 @@ export default function Login() {
         const {
           data: { token: jwtToken },
         } = reponse;
-        setJwtToken(jwtToken);
+        dispatch(setToken(jwtToken));
 
         notification.open({
           message: "로그인 성공",
           description: "메인 페이지로 이동합니다.",
           icon: <SmileOutlined style={{ color: "#108ee9" }} />,
         });
-        navigate("/");
+        navigate(loginRequiredUrl);
       } catch (error) {
         if (error) {
           notification.open({
@@ -43,20 +43,6 @@ export default function Login() {
             description: "아이디 / 비밀번호를 확인해주세요.",
             icon: <FrownOutlined style={{ color: "#ff3333" }} />,
           });
-
-          const { data: fieldsErrorMessages } = error.reponse;
-          setFieldErrors(
-            Object.entries(fieldsErrorMessages).reduce(
-              (acc, [fieldName, errors]) => {
-                acc[fieldName] = {
-                  validateStatus: "error",
-                  help: errors.join(" "),
-                };
-                return acc;
-              },
-              {}
-            )
-          );
         }
       }
     }
