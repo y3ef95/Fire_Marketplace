@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from "react";
 import { Form, Input, Button, notification } from "antd";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { axiosInstance } from "api";
 import { SmileOutlined, FrownOutlined } from "@ant-design/icons";
 import "scss/Signup.scss";
 
@@ -66,14 +66,14 @@ export default function Signup() {
 
       const data = { email, password, confirm_password, username };
       try {
-        await axios.post("http://127.0.0.1:8000/accounts/signup/", data);
+        await axiosInstance.post("/accounts/signup/", data);
 
         notification.open({
           message: "회원가입 성공",
           description: "로그인 페이지로 이동합니다.",
           icon: <SmileOutlined style={{ color: "#108ee9" }} />,
         });
-        navigate("/login");
+        navigate("/accounts/login");
       } catch (error) {
         if (error.response) {
           console.error(error.response);

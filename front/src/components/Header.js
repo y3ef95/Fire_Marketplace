@@ -18,10 +18,10 @@ export default function Header() {
         <div></div>
         <div className="top_bar_right">
           <Space>
-            <div onClick={() => navigate("/login")}>
+            <div onClick={() => navigate("/accounts/login")}>
               <p>로그인/회원가입</p>
             </div>
-            <div onClick={() => navigate("/profile")}>
+            <div onClick={() => navigate("/accounts/profile")}>
               <p>내상점</p>
             </div>
           </Space>

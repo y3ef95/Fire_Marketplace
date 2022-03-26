@@ -12,6 +12,6 @@ export default function LoginRequiredRoute() {
   if (isAuthenticated) {
     return <Outlet />;
   } else {
-    return <Navigate replace to="/login" state={{ from: location }} />;
+    return <Navigate replace to="/accounts/login" state={{ from: location }} />;
   }
 }
