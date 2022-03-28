@@ -30,15 +30,15 @@ class ProductViewSet(ModelViewSet):
         return super().perform_create(serializer)
 
     @action(detail=True, methods=["POST"])
-    def like(self, request, pk):
-        post = self.get_object()
-        post.product_like.add(self.request.user)
+    def like(self, request, id):
+        product = self.get_object()
+        product.product_like.add(self.request.user)
         return Response(status.HTTP_201_CREATED)
 
     @like.mapping.delete
-    def unlike(self, request, pk):
-        post = self.get_object()
-        post.product_like.remove(self.request.user)
+    def unlike(self, request, id):
+        product = self.get_object()
+        product.product_like.remove(self.request.user)
         return Response(status.HTTP_204_NO_CONTENT)
 
 
@@ -53,10 +53,10 @@ class CommentViewSet(ModelViewSet):
 
     def get_queryset(self):
         qs = super().get_queryset()
-        qs = qs.filter(post__pk=self.kwargs["post_pk"])
+        qs = qs.filter(product__id=self.kwargs["product_id"])
         return qs
 
     def perform_create(self, serializer):
-        post = get_object_or_404(Product, pk=self.kwargs["post_pk"])
-        serializer.save(writer=self.request.user, post=post)
+        product = get_object_or_404(Product, id=self.kwargs["product_id"])
+        serializer.save(author=self.request.user, product=product)
         return super().perform_create(serializer)
