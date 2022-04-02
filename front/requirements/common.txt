@@ -3,5 +3,7 @@ axios
 axios-hooks
 react-router-dom
 antd
+antd-img-crop
 node-sass
 use-reducer-with-side-effects
+rc-tween-one 

@@ -48,44 +48,10 @@
     justify-self: center;
   }
   .top_nav {
+    font-family: "Dongle", sans-serif;
     margin-top: 21px;
     font-size: 17px;
     grid-area: top_nav;
     justify-self: right;
-  }
-}
-.nav {
-  margin: 0 auto;
-  .cate {
-    display: flex;
-    align-items: center;
-    height: 78px;
-    border-bottom: 1px solid #212121;
-  }
-  .home_text {
-    font-size: 12px;
-    margin: 0px 3px;
-  }
-  .drop_down {
-    display: flex;
-    width: 180px;
-    height: 28px;
-    align-items: center;
-  }
-  .drop_down_box {
-    display: flex;
-    padding: 0px 4px;
-    justify-content: space-between;
-    width: 154px;
-    align-items: center;
-    height: 28px;
-    border: 1px solid #eeeeee;
-  }
-  .text {
-    display: flex;
-    align-items: center;
-    height: 11.5px;
-    font-size: 12px;
-    padding: 0px 25px 0px 10px;
   }
 }

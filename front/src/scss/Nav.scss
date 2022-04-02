@@ -3,10 +3,11 @@
 
 .nav_menu {
   .menu {
-    left: 40px;
+    left: 46px;
     top: 156px;
     width: 200px;
     position: absolute;
+    z-index: 2;
     text-align: left;
     background-color: white;
     font-family: "Black Han Sans", sans-serif;

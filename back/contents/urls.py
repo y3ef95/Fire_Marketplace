@@ -8,5 +8,5 @@ router.register(r"products/(?P<product_id>\d+)/comments", views.CommentViewSet)
 
 
 urlpatterns = [
-    path("api/", include(router.urls)),
+    path("", include(router.urls)),
 ]

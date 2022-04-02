@@ -13,15 +13,21 @@ export default function Header() {
   const navigate = useNavigate();
   const onSearch = (value) => console.log(value);
   return (
-    <>
+    <div>
       <div className="top_bar">
         <div></div>
         <div className="top_bar_right">
           <Space>
-            <div onClick={() => navigate("/accounts/login")}>
+            <div
+              style={{ cursor: "pointer" }}
+              onClick={() => navigate("/accounts/login")}
+            >
               <p>로그인/회원가입</p>
             </div>
-            <div onClick={() => navigate("/accounts/profile")}>
+            <div
+              style={{ cursor: "pointer" }}
+              onClick={() => navigate("/accounts/profile")}
+            >
               <p>내상점</p>
             </div>
           </Space>
@@ -30,7 +36,7 @@ export default function Header() {
       <hr size="1" color="#e8e8e8" />
 
       <div className="header">
-        <div className="logo">
+        <div className="logo" style={{ cursor: "pointer" }}>
           <p onClick={() => navigate("/")}>불꽃장터</p>
           <div className="nav">
             <Nav />
@@ -46,15 +52,21 @@ export default function Header() {
         </div>
         <div className="top_nav">
           <Space>
-            <div>
+            <div
+              onClick={() => navigate("/contents/products/")}
+              style={{ cursor: "pointer" }}
+            >
               <DollarCircleOutlined />
               판매하기
             </div>
-            <div onClick={() => navigate("/profile")}>
+            <div
+              onClick={() => navigate("/profile")}
+              style={{ cursor: "pointer" }}
+            >
               <UserOutlined />
               내상점
             </div>
-            <div>
+            <div style={{ cursor: "pointer" }}>
               <MessageOutlined />
               불꽃톡
             </div>
@@ -62,8 +74,7 @@ export default function Header() {
         </div>
       </div>
       <hr size="1" color="#e8e8e8" />
-      <div className="nav"></div>
       <Outlet />
-    </>
+    </div>
   );
 }

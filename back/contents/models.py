@@ -17,6 +17,7 @@ class TimeStampedModel(models.Model):
     class Meta:
         abstract = True
 
+
 class Product(TimeStampedModel):
     class ProductConditionChoice(models.TextChoices):
         used = "중고"
@@ -30,6 +31,7 @@ class Product(TimeStampedModel):
 
 
     writer = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="my_product_set",on_delete=models.CASCADE,verbose_name="작성자")
+    product_image = models.ImageField(upload_to=product_images_url,verbose_name="상품 이미지")
     product_name = models.CharField(max_length=255,verbose_name="상품명")
     product_price = models.IntegerField(verbose_name="가격")
     #TODO:좋아요 기능 구현하기
@@ -41,17 +43,8 @@ class Product(TimeStampedModel):
     delivery_included = models.CharField(max_length=20,choices=DeliveryIncludedChoice.choices,verbose_name="배송비 포함 여부")
     trading_location = models.CharField(max_length=50,verbose_name="거래 지역")
     product_desc = models.TextField(verbose_name="상품 정보")
-    product_image = models.ImageField(upload_to=product_images_url,verbose_name="상품 이미지")
     product_count = models.IntegerField(verbose_name="수량")
-    tag_set = models.ManyToManyField("Tag", blank=True)
-
-    def extract_tag_list(self):
-        tag_name_list = re.findall(r"#([a-zA-Z\dㄱ-힣]+)", self.caption)
-        tag_list = []
-        for tag_name in tag_name_list:
-            tag, _ = Tag.objects.get_or_create(name=tag_name)
-            tag_list.append(tag)
-        return tag_list
+    product_category = models.ForeignKey("Category",default="1",related_name="product_category_set",on_delete=models.CASCADE)
 
 class Comment(TimeStampedModel):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -61,9 +54,9 @@ class Comment(TimeStampedModel):
     class Meta:
         ordering = ["-id"]
 
-class Tag(TimeStampedModel):
-    name = models.CharField(max_length=255, unique=True)
+class Category(TimeStampedModel):
+    category_name = models.CharField(max_length=255,unique=True)
 
     def __str__(self):
-        return self.name
+        return self.category_name
 

@@ -3,7 +3,6 @@ from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from .models import Product, Comment
 
-
 class AuthorSerializer(serializers.ModelSerializer):
     avatar_url = serializers.SerializerMethodField("avatar_url_field")
 
@@ -20,12 +19,25 @@ class AuthorSerializer(serializers.ModelSerializer):
         model = get_user_model()
         fields = ["email", "username", "avatar_url"]
 
+
 class ProductSerializer(serializers.ModelSerializer):
     writer = AuthorSerializer(read_only=True)
-
     class Meta:
         model = Product
-        fields = "__all__"
+        fields = ["id","writer",
+                  "product_image",
+                  "product_name",
+                  "product_category",
+                  "trading_location",
+                  "product_condition",
+                  "exchange_or_not",
+                  "delivery_included",
+                  "product_price",
+                  "product_desc",
+                  "product_count",
+                  "product_like",
+                  "product_hits"]
+
 
 class CommentSerializer(serializers.ModelSerializer):
     writer = AuthorSerializer(read_only=True)

@@ -15,7 +15,7 @@ class ProductViewSet(ModelViewSet):
     queryset = (
         Product.objects.all()
         .select_related("writer")
-        .prefetch_related("tag_set")
+
     )
     serializer_class = ProductSerializer
     permission_classes = [AllowAny]
@@ -60,3 +60,4 @@ class CommentViewSet(ModelViewSet):
         product = get_object_or_404(Product, id=self.kwargs["product_id"])
         serializer.save(author=self.request.user, product=product)
         return super().perform_create(serializer)
+
