@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+
+.product_detail_main{
+    
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(1, 1fr);
+  margin: 5px auto;
+  width: 850px;
+  .product_related{
+    font-family: 'Noto Sans KR', sans-serif;
+    margin-left: 50px;
+    font-size: 15px;
+    p{
+      color: #bbbbbb
+    }
+    .product_related_first{
+      font-family: 'Gothic A1', sans-serif;
+      font-size: 35px;
+    }
+    .product_related_second{
+      font-size: 20px;
+      color: #bbbbbb
+    }
+    .product_related_third{
+      margin-top: 15px;
+    }
+  }
+  .product_detail_bottom{
+    p{
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 20px;
+    }
+    .product_desc{
+      margin-top: 50px;
+      font-size: 17px;
+    }
+  }
+}

@@ -24,19 +24,7 @@ class ProductSerializer(serializers.ModelSerializer):
     writer = AuthorSerializer(read_only=True)
     class Meta:
         model = Product
-        fields = ["id","writer",
-                  "product_image",
-                  "product_name",
-                  "product_category",
-                  "trading_location",
-                  "product_condition",
-                  "exchange_or_not",
-                  "delivery_included",
-                  "product_price",
-                  "product_desc",
-                  "product_count",
-                  "product_like",
-                  "product_hits"]
+        fields = "__all__"
 
 
 class CommentSerializer(serializers.ModelSerializer):

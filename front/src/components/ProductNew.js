@@ -166,7 +166,7 @@ export default function PostNewForm() {
                   onChange={imageOnChange}
                   onPreview={onPreview}
                 >
-                  {fileList.length < 5 && "+ Upload"}
+                  {fileList.length < 1 && "+ Upload"}
                 </Upload>
               </Form.Item>
             </div>
@@ -243,7 +243,7 @@ export default function PostNewForm() {
               >
                 <Radio.Group onChange={deliveryOnChange} value={deliveryValue}>
                   <Radio value={"배송비 미포함"}>배송비 미포함</Radio>
-                  <Radio value={"i배송비 포함"}>배송비 포함</Radio>
+                  <Radio value={"배송비 포함"}>배송비 포함</Radio>
                 </Radio.Group>
               </Form.Item>
             </div>

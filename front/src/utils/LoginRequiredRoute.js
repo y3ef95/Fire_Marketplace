@@ -7,7 +7,6 @@ export default function LoginRequiredRoute() {
     store: { isAuthenticated },
   } = useAppContext();
   const location = useLocation();
-  console.log(isAuthenticated);
 
   if (isAuthenticated) {
     return <Outlet />;

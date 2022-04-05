@@ -60,4 +60,3 @@ class CommentViewSet(ModelViewSet):
         product = get_object_or_404(Product, id=self.kwargs["product_id"])
         serializer.save(author=self.request.user, product=product)
         return super().perform_create(serializer)
-
