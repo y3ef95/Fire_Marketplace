@@ -2,6 +2,7 @@ import React from "react";
 import { HeartFilled, EyeFilled, ClockCircleFilled } from "@ant-design/icons";
 import moment from "moment";
 import "scss/ProductDetailView.scss";
+import CommentList from "./CommentList";
 
 export default function ProductDetailView({ data }) {
   const {
@@ -20,7 +21,6 @@ export default function ProductDetailView({ data }) {
     tag_set,
     created_at,
   } = data;
-  console.log(created_at);
   const { username, avatar_url } = writer;
 
   return (
@@ -73,6 +73,14 @@ export default function ProductDetailView({ data }) {
         <div className="product_desc">{product_desc}</div>
         <div>{product_count}</div>
         <div>{tag_set}</div>
+      </div>
+      <hr style={{ width: "100%" }} size="1" color="#000000" />
+      <div className="product_detail_bottom">
+        <p>댓글</p>
+        <hr style={{ width: "100%" }} size="1" color="#dddddd" />
+        <div className="comment">
+          <CommentList product={data} />
+        </div>
       </div>
     </div>
   );

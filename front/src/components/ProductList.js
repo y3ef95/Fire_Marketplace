@@ -20,7 +20,7 @@ export default function ProductList() {
   return (
     <div className="product_list">
       {productList && productList.length === 0 && (
-        <Alert type="warning" message="포스팅이 없습니다. :-(" />
+        <Alert type="warning" message="상품이 없습니다. :-(" />
       )}
       {productList &&
         productList.map((product) => (

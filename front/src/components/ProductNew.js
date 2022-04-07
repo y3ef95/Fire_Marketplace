@@ -102,7 +102,6 @@ export default function PostNewForm() {
       product_count,
       product_image: { fileList },
     } = fieldValues;
-    console.log(fieldValues);
 
     const formData = new FormData();
     formData.append("product_name", product_name);

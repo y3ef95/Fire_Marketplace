@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Input } from "antd";
+import { Button, Input, Alert } from "antd";
 import { axiosInstance, useAxios } from "api";
 import { useAppContext } from "store";
 import Comment from "./Comment";
@@ -13,26 +13,24 @@ export default function CommentList({ product }) {
 
   const headers = { Authorization: `JWT ${jwtToken}` };
 
+  const formData = new FormData();
+  formData.append("message", commentContent);
+  formData.append("prodcut", product.id);
+
   const [{ data: commentList, loading, error }, refetch] = useAxios({
-    url: `/contents/api/products/${product.id}/comments/`,
-    headers,
+    url: `/contents/products/${product.id}/comments/`,
   });
 
   const handleCommentSave = async () => {
-    const apiUrl = `/contents/api/products/${product.id}/comments/`;
+    const apiUrl = `/contents/products/${product.id}/comments/`;
 
     console.group("handleCommentSave");
     try {
-      const response = await axiosInstance.post(
-        apiUrl,
-        { message: commentContent },
-        { headers }
-      );
-      console.log(response);
+      const response = await axiosInstance.post(apiUrl, formData, { headers });
       setCommentComment("");
       refetch();
     } catch (error) {
-      console.log(error);
+      console.log(error.response);
     }
 
     console.groupEnd();
@@ -40,24 +38,52 @@ export default function CommentList({ product }) {
 
   return (
     <div>
-      {commentList &&
-        commentList.map((comment) => (
-          <Comment key={comment.id} comment={comment} />
-        ))}
-
-      <Input.TextArea
-        style={{ marginBottom: ".5em" }}
-        value={commentContent}
-        onChange={(e) => setCommentComment(e.target.value)}
-      />
-      <Button
-        block
-        type="primary"
-        disabled={commentContent.length === 0}
-        onClick={handleCommentSave}
-      >
-        댓글 쓰기
-      </Button>
+      {commentList && commentList.length === 0 && (
+        <Alert
+          type="warning"
+          message="댓글이 없습니다."
+          style={{ marginBottom: 30 }}
+        />
+      )}
+      <div style={{ marginBottom: 30 }}>
+        {commentList &&
+          commentList.map((comment) => (
+            <Comment key={comment.id} comment={comment} />
+          ))}
+      </div>
+      {jwtToken.length === 0 ? (
+        <>
+          <Input.TextArea
+            style={{ marginBottom: ".5em" }}
+            placeholder={"로그인이 필요합니다."}
+            disabled
+          />
+          <Button
+            block
+            type="primary"
+            disabled={commentContent.length === 0}
+            onClick={handleCommentSave}
+          >
+            댓글 쓰기
+          </Button>
+        </>
+      ) : (
+        <>
+          <Input.TextArea
+            style={{ marginBottom: ".5em" }}
+            value={commentContent}
+            onChange={(e) => setCommentComment(e.target.value)}
+          />
+          <Button
+            block
+            type="primary"
+            disabled={commentContent.length === 0}
+            onClick={handleCommentSave}
+          >
+            댓글 쓰기
+          </Button>
+        </>
+      )}
     </div>
   );
 }

@@ -26,9 +26,9 @@ class ProductSerializer(serializers.ModelSerializer):
         model = Product
         fields = "__all__"
 
-
 class CommentSerializer(serializers.ModelSerializer):
-    writer = AuthorSerializer(read_only=True)
+    author = AuthorSerializer(read_only=True)
+    product = ProductSerializer(read_only=True)
 
     class Meta:
         model = Comment

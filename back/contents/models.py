@@ -46,6 +46,10 @@ class Product(TimeStampedModel):
     product_count = models.IntegerField(verbose_name="수량")
     product_category = models.ForeignKey("Category",default="1",related_name="product_category_set",on_delete=models.CASCADE)
 
+    def get_absolute_url(self):
+        return reverse("product:product_detail", args=[self.id])
+
+
 class Comment(TimeStampedModel):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
