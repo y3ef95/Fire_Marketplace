@@ -3,9 +3,15 @@ import { HeartFilled, EyeFilled, ClockCircleFilled } from "@ant-design/icons";
 import moment from "moment";
 import "scss/ProductDetailView.scss";
 import CommentList from "./CommentList";
+import { useAppContext } from "store";
+import { Axios } from "axios";
+import { useParams } from "react-router-dom";
+import { axiosInstance } from "api";
+import { Button } from "antd";
 
-export default function ProductDetailView({ data }) {
+export default function ProductDetailView({ product, handleLike }) {
   const {
+    id,
     writer,
     product_name,
     product_price,
@@ -20,24 +26,27 @@ export default function ProductDetailView({ data }) {
     product_count,
     tag_set,
     created_at,
-  } = data;
+    is_like,
+    likes,
+  } = product;
   const { username, avatar_url } = writer;
-
+  console.log(product);
   return (
     <div className="product_detail_main">
       <hr style={{ width: "100%" }} size="1" color="#000000" />
       <div style={{ display: "flex" }}>
-        <img src={product_image} style={{ width: 300, height: 300 }} />
+        <img src={product_image} style={{ width: 400, height: 400 }} />
         <div className="product_related">
           <div className="product_related_first">
             <div>{product_name}</div>
             <div>{product_price}&nbsp;원</div>
           </div>
-          <hr style={{ width: 500 }} size="1" color="#bbbbbb" />
+          <hr style={{ width: "100%" }} size="1" color="#bbbbbb" />
           <div className="product_related_second" style={{ display: "flex" }}>
             <div style={{ marginRight: 15 }}>
               <HeartFilled />
-              {product_like}
+              &nbsp;&nbsp;
+              {likes}
               &nbsp;&nbsp; |&nbsp;&nbsp;
               <EyeFilled />
               &nbsp;&nbsp;
@@ -64,6 +73,53 @@ export default function ProductDetailView({ data }) {
             <p style={{ width: 80 }}>&bull;거래지역&nbsp;&nbsp;</p>
             {trading_location}
           </div>
+          <div className="product_related_button">
+            <div>
+              {is_like ? (
+                <Button
+                  style={{
+                    marginTop: 20,
+                    marginRight: 20,
+                    backgroundColor: "#fe4d4d",
+                    width: 180,
+                    height: 53,
+                    fontSize: 20,
+                    color: "white",
+                  }}
+                  onClick={() => handleLike({ product, like_unlike: false })}
+                >
+                  <HeartFilled />찜
+                </Button>
+              ) : (
+                <Button
+                  style={{
+                    marginTop: 20,
+                    marginRight: 20,
+                    backgroundColor: "#dddddd",
+                    width: 180,
+                    height: 53,
+                    fontSize: 20,
+                    color: "white",
+                  }}
+                  onClick={() => handleLike({ product, like_unlike: true })}
+                >
+                  <HeartFilled />찜
+                </Button>
+              )}
+              <Button
+                style={{
+                  marginTop: 20,
+                  backgroundColor: "orange",
+                  width: 180,
+                  height: 53,
+                  fontSize: 20,
+                  color: "white",
+                }}
+              >
+                연락하기
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
       <hr style={{ width: "100%" }} size="1" color="#000000" />
@@ -79,7 +135,7 @@ export default function ProductDetailView({ data }) {
         <p>댓글</p>
         <hr style={{ width: "100%" }} size="1" color="#dddddd" />
         <div className="comment">
-          <CommentList product={data} />
+          <CommentList product={product} />
         </div>
       </div>
     </div>

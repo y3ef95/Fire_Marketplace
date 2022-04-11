@@ -22,9 +22,38 @@ class AuthorSerializer(serializers.ModelSerializer):
 
 class ProductSerializer(serializers.ModelSerializer):
     writer = AuthorSerializer(read_only=True)
+    is_like = serializers.SerializerMethodField("is_like_field")
+    likes = serializers.SerializerMethodField("likes_field")
+
+    def likes_field(self,product):
+        return product.product_like.count()
+
+    def is_like_field(self, product):
+        if "request" in self.context:
+            user = self.context["request"].user
+            return product.product_like.filter(pk=user.pk).exists()
+        return False
+
     class Meta:
         model = Product
-        fields = "__all__"
+        fields = [
+            "id",
+            "writer",
+            "product_name",
+            "product_price",
+            "product_like",
+            "product_hits",
+            "product_condition",
+            "exchange_or_not",
+            "delivery_included",
+            "trading_location",
+            "product_desc",
+            "product_image",
+            "product_count",
+            "created_at",
+            "is_like",
+            "likes",
+            ]
 
 class CommentSerializer(serializers.ModelSerializer):
     author = AuthorSerializer(read_only=True)

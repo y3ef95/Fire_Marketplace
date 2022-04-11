@@ -75,7 +75,7 @@ export default function Login() {
           </Form.Item>
           <Form.Item>
             <a
-              href="/signup"
+              href="/accounts/signup"
               style={{ marginLeft: "130px", textDecoration: "underline" }}
             >
               회원가입

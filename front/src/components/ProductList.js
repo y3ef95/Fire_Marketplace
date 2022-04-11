@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Alert } from "antd";
 import { useAxios, axiosInstance } from "api";
-import ProductView from "./ProductView";
 import { useAppContext } from "store";
+import ProductView from "./ProductView";
 import "scss/ProductList.scss";
-import { useNavigate } from "react-router-dom";
 
 export default function ProductList() {
+  const {
+    store: { jwtToken },
+  } = useAppContext();
+
   const [productList, setProductList] = useState([]);
+
+  const headers = { Authorization: `JWT ${jwtToken}` };
 
   const [{ data: originProductList, loading, error }, refetch] = useAxios({
     url: "/contents/products/",

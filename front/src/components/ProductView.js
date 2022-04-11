@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import "scss/Product.scss";
 
-export default function Product({ product, handleLike }) {
+export default function Product({ product }) {
   const navigate = useNavigate();
   const {
     id,
@@ -29,6 +29,7 @@ export default function Product({ product, handleLike }) {
   const onClick = () => {
     navigate(`/contents/products/${id}`);
   };
+
   return (
     <div>
       <Card

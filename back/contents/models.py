@@ -49,6 +49,9 @@ class Product(TimeStampedModel):
     def get_absolute_url(self):
         return reverse("product:product_detail", args=[self.id])
 
+    def is_like_user(self, user):
+        return self.product_like.filter(id=user.id).exists()
+
 
 class Comment(TimeStampedModel):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
